@@ -23,6 +23,9 @@ The dataset was made available by Finnish Inverse Problems Society (FIPS) during
 #### Test set
     https://zenodo.org/record/5713637
 
+#### The OCR evaluation code is available at
+    https://www.fips.fi/HDC2021_ocrscorecode.zip
+
 ## 3.Installation, usage instructions, and examples
 
 ### 3.1 - Prerequisites
@@ -72,18 +75,3 @@ The following example is an out-of-focus blur from category 15 (HDC2021). From l
 
 #### URL for "Deconvblind": 
     https://www.mathworks.com/help/images/ref/deconvblind.html
-
-
-### 6. Other external codes
-
-#### We modified and adapted codes
-1. From the original "Deep Image prior" code. Available at
-    https://github.com/DmitryUlyanov/deep-image-prior/
-Under Apache License 2.0
-
-1. From a derivative work: Neural Blind Deconvolution Using Deep Priors [[5]](#5)
-    https://github.com/csdwren/SelfDeblur
-(no copyright disclaimer was found)
-
-#### The OCR evaluation code is available at
-    https://www.fips.fi/HDC2021_ocrscorecode.zip
