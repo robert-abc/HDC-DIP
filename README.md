@@ -44,7 +44,7 @@ We recommend running the code using CUDA/GPU.
 
 ### 3.2 - Installation: Clone this repository
      git clone https://github.com/robert-abc/HDC-DIP/
-     cd COMI
+     cd HDC-DIP
 
 
 
