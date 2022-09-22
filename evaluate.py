@@ -1,5 +1,6 @@
 import argparse
 import os
+import re
 import numpy as np
 from utils import evaluation_tools
 
@@ -43,7 +44,9 @@ parser.add_argument('--save_name', type=str, default=None, required=False,
 args = parser.parse_args()
 
 # Get image names
+r = re.compile(".+\\.")
 deblurred_names = sorted(os.listdir(args.deblurred_path))
+deblurred_names = list(filter(r.match, deblurred_names))
 print(f"{len(deblurred_names)} images were found.")
 
 results = {}
@@ -56,6 +59,7 @@ if(args.calculate_PSNR or args.calculate_SSIM):
                                                  the groundTruth_path argument."
 
     groundTruth_names = sorted(os.listdir(args.groundTruth_path))
+    groundTruth_names = list(filter(r.match, groundTruth_names))
 
     assert (len(deblurred_names) == len(groundTruth_names)), "Ground truth and deblurred folders have\
                                                             a different number of images."
@@ -69,6 +73,7 @@ if(args.calculate_OCR):
     assert(args.text_path is not None), "Calculating the OCR score requires the text_path argument."
 
     text_names = sorted(os.listdir(args.text_path))
+    text_names = list(filter(r.match, text_names))
     assert (len(deblurred_names) == len(text_names)), "Text and deblurred folders have\
                                                         a different number of files."
     results['ocr'] = []
@@ -77,7 +82,7 @@ for i_img in range(len(deblurred_names)):
     deblurredFile = os.path.join(args.deblurred_path, deblurred_names[i_img])
 
     if(args.calculate_OCR):
-        textFile = os.path.join(args.deblurred_path, text_names[i_img])
+        textFile = os.path.join(args.text_path, text_names[i_img])
         OCR_score = evaluation_tools.evaluateImage_OCR(deblurredFile, textFile)
         results['ocr'].append(OCR_score)
     
@@ -95,10 +100,12 @@ for i_img in range(len(deblurred_names)):
     if(not args.omit_progress):
         print(f"{i_img}/{len(deblurred_names)}")
 
-for metric in results.keys():
+calculated_metrics = list(results.keys())
+
+for metric in calculated_metrics:
     results[metric+'_mean'] = np.mean(results[metric])
     results[metric+'_std'] = np.std(results[metric])
     print(f"{metric.upper()} result: {results[metric+'_mean']} +- {results[metric+'_std']}")
 
-if(args.save_path is not None):
-    np.save(args.save_path, results, allow_pickle=True)
+if(args.save_name is not None):
+    np.save(args.save_name, results, allow_pickle=True)
