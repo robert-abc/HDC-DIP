@@ -62,7 +62,7 @@ def evaluateImage_OCR(imageFile, trueTextFile, norm=True):
     if len(OCRtext) != 3:
         #print('ERROR: OCR text does not have 3 lines of text!')
         #print(OCRtext)
-        return None
+        return 0
     else:
         score = fuzz.ratio(trueText[1], OCRtext[1])
         #print('OCR  text (middle line): %s' % OCRtext[1])
