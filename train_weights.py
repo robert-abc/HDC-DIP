@@ -22,8 +22,8 @@ parser.add_argument('--blur_path', type=str, nargs="+",
                     help='Path with images to be deblurred')
 parser.add_argument('--sharp_path', type=str, nargs="+",
                     help='Path with sharp images')
-parser.add_argument('--weight_path', type=str, required = False, default=None,
-                    help='Path to save weight')
+parser.add_argument('--weight_path', type=str, required = False, default="",
+                    help='Path to save weight (default: working directory).')
 parser.add_argument('--blur_level', type=int, nargs="+", required = False,
                     choices=range(0,20), metavar='[0-19]',
                     help='Level of blur')
