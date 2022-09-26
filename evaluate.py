@@ -33,12 +33,12 @@ parser.add_argument('--calculate_SSIM', action='store_true',
                         help='Calculate the SSIM metric for the images. Require path to \
                             ground truth images (--groundTruth_path).'
                     )
-parser.add_argument('--omit_progress', action='store_false',
+parser.add_argument('--omit_progress', action='store_true',
                         help='Omit the print of the execution progress\
                             (current image number/total image number).'
                     )
-parser.add_argument('--save_name', type=str, default=None, required=False,
-                        help='Name (including desired path) to save the dictionary with the metrics results.'
+parser.add_argument('--save_name', type=str, default="evaluation_results.npy", required=False,
+                        help='Name (including desired path) to save the dictionary with the metrics results (default: evaluation_results.npy).'
                     )                                             
                                      
 args = parser.parse_args()
