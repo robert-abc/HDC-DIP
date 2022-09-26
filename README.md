@@ -50,10 +50,10 @@ We recommend running the code using CUDA/GPU.
 
 ### 3.3 - Usage instructions
 #### Training: The first command needed for the training generates the dataset of reconstructions by using only the DIP
-    $ python train_weights.py path/to/blurred/files path/to/focused/files --blur_level blur_category --save_intermediary path/to/dip/results
+    $ python train_weights.py --blur_path path/to/blurred/files --sharp_path path/to/focused/files --blur_level blur_category --save_intermediary path/to/dip/results
     
 #### Training: The second command train the CNN using this generated dataset as input and save the weights: 
-    $ python train_weights.py path/to/blurred/files path/to/focused/files --blur_level blur_category --weight_path path/to/save/weight --have_intermediary path/to/dip/results
+    $ python train_weights.py --blur_path path/to/blurred/files --sharp_path path/to/focused/files --blur_level blur_category --weight_path path/to/save/weight --have_intermediary path/to/dip/results
 
 #### Test: The main function is a callable function from the command line:
     $ python main.py path/to/blurred/files path/to/save/deblurred/files blur_category
