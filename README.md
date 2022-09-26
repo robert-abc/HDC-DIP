@@ -2,14 +2,14 @@
 # Restoring severely out-of-focus blurred text images with DIP
 ## 1 - Introduction
 
-Deep Image Prior (DIP) reconstructs images given the single degraded image and a forward model. In this work, instead of using only the DIP network, the main idea here is to use an additional supervised CNN  to include prior information from the sharp images.
+Deep Image Prior (DIP) reconstructs images given a single degraded image and a forward model. In this work, instead of using only the DIP network, the main idea here is to use an additional supervised CNN  to include prior information from the sharp images.
 
 **Method overview**
 
 ![result of deblured image ](https://github.com/robert-abc/HDC-DIP/blob/main/Figures/Overview.png)
 
 ## 2 - Dataset 
-The dataset was made available by Finnish Inverse Problems Society (FIPS) during the Helsinki Deblur Challenge 2021 (HDC2021):
+The dataset was made available by the Finnish Inverse Problems Society (FIPS) during the Helsinki Deblur Challenge 2021 (HDC2021):
 
 #### HDC2021 main page:
     https://www.fips.fi/HDC2021.php
@@ -58,21 +58,21 @@ To use the evaluation script, the following packages are also required:
 
 
 ### 3.3 - Usage instructions
-#### Training: The first command needed for the training generates the dataset of reconstructions by using only the DIP
+#### Training: The first command needed for the training generates the dataset of reconstructions by using only the DIP. Note that the HDC2021 training dataset of each blur level contains three images that were intended to be used to estimate the PSF of the problem. These images should be removed before the training, maintaining only the images with letters.
     python train_weights.py --blur_path path/to/blurred/files --sharp_path path/to/focused/files --blur_level blur_category --save_intermediary path/to/dip/results
     
-#### Training: The second command train the CNN using this generated dataset as input and save the weights: 
+#### Training: The second command trains the CNN using this generated dataset as input and saves the weights: 
     python train_weights.py --blur_path path/to/blurred/files --sharp_path path/to/focused/files --blur_level blur_category --weight_path path/to/save/weight --have_intermediary path/to/dip/results
 
 #### Test: The main function is a callable function from the command line:
     python main.py path/to/blurred/files path/to/save/deblurred/files blur_category
 
-#### Evaluation: The desired metrics can be calculated by including the corresponding arguments (--calculate_OCR, --calculate_PSNR and/or --calculate_SSIM). Depending on the chosen metrics, groundTruth_path or text_path arguments may be required.   
+#### Evaluation: The desired metrics can be calculated by including the corresponding arguments (--calculate_OCR, --calculate_PSNR and/or --calculate_SSIM). Depending on the chosen metrics, groundTruth_path or text_path arguments may be required. It is recommended to create separate folders containing only the files to be evaluated. 
     python evaluate.py --deblurred_path path/to/deblurred/files --groundTruth_path path/to/focused/files --text_path path/to/text/transcriptions --calculate_OCR --calculate_PSNR --calculate_SSIM --save_name path/to/save/results
 
 ## 4 - Result example
 
-The following example is an out-of-focus blur from category 15 (HDC2021). From left to right: Sharp, blurred and deblurred images.
+The following example is an out-of-focus blur from category 15 (HDC2021). From left to right: Sharp, blurred, and deblurred images.
    
 ![result of deblured image ](https://github.com/robert-abc/HDC-DIP/blob/main/Figures/example.png)
 
