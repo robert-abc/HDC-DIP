@@ -32,6 +32,8 @@ The dataset was made available by Finnish Inverse Problems Society (FIPS) during
 
 **Python 3.7**
 
+To use the deblurring algorithm of our implementation, the following packages are required:
+
 | Package  | Version | 
 | ------------- | ------------- | 
 | PyTorch  | 1.11.0  | 
@@ -42,6 +44,13 @@ The dataset was made available by Finnish Inverse Problems Society (FIPS) during
 
 We recommend running the code using CUDA/GPU.
 
+To use the evaluation script, the following packages are also required:
+
+| Package  | Version | 
+| ------------- | ------------- | 
+| Pytesseract  | 0.3.10  | 
+| Fuzzywuzzy  | 0.18.0  |  
+
 ### 3.2 - Installation: Clone this repository
      git clone https://github.com/robert-abc/HDC-DIP/
      cd HDC-DIP
@@ -50,13 +59,16 @@ We recommend running the code using CUDA/GPU.
 
 ### 3.3 - Usage instructions
 #### Training: The first command needed for the training generates the dataset of reconstructions by using only the DIP
-    $ python train_weights.py --blur_path path/to/blurred/files --sharp_path path/to/focused/files --blur_level blur_category --save_intermediary path/to/dip/results
+    python train_weights.py --blur_path path/to/blurred/files --sharp_path path/to/focused/files --blur_level blur_category --save_intermediary path/to/dip/results
     
 #### Training: The second command train the CNN using this generated dataset as input and save the weights: 
-    $ python train_weights.py --blur_path path/to/blurred/files --sharp_path path/to/focused/files --blur_level blur_category --weight_path path/to/save/weight --have_intermediary path/to/dip/results
+    python train_weights.py --blur_path path/to/blurred/files --sharp_path path/to/focused/files --blur_level blur_category --weight_path path/to/save/weight --have_intermediary path/to/dip/results
 
 #### Test: The main function is a callable function from the command line:
-    $ python main.py path/to/blurred/files path/to/save/deblurred/files blur_category
+    python main.py path/to/blurred/files path/to/save/deblurred/files blur_category
+
+#### Evaluation: The desired metrics can be calculated by including the corresponding arguments (--calculate_OCR, --calculate_PSNR and/or --calculate_SSIM). Depending on the chosen metrics, groundTruth_path or text_path arguments may be required.   
+    python evaluate.py --deblurred_path path/to/deblurred/files --groundTruth_path path/to/focused/files --text_path path/to/text/transcriptions --calculate_OCR --calculate_PSNR --calculate_SSIM --save_name path/to/save/results
 
 ## 4 - Result example
 
